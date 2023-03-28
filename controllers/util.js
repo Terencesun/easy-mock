@@ -12,6 +12,7 @@ const config = require('config')
 
 const uploadConf = config.get('upload')
 const unsplashClientId = config.get('unsplashClientId')
+const serverPublicPath = config.get('fe.serverPublicPath')
 const unsplashCache = LRU({ max: 1, maxAge: 1000 * 60 * 60 })
 
 module.exports = class UtilController {
@@ -84,7 +85,7 @@ module.exports = class UtilController {
     reader.pipe(stream)
 
     ctx.body = ctx.util.resuccess({
-      path: new URL(path.join('upload', date, fileName), origin).href,
+      path: new URL(path.join(`${serverPublicPath === '' ? 'upload' : `${serverPublicPath.replace('/', '')}/upload`}`, date, fileName), origin).href,
       expire: expireDay > 0
         ? moment().add(expireDay, 'days').format('YYYY-MM-DD 00:00:00')
         : /* istanbul ignore next */ -1

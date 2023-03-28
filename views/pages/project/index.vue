@@ -94,6 +94,7 @@
 import Clipboard from 'clipboard'
 import debounce from 'lodash/debounce'
 import * as api from '../../api'
+import conf from 'config'
 
 export default {
   name: 'project',
@@ -122,7 +123,7 @@ export default {
     page () {
       const route = this.$route
       switch (route.fullPath) {
-        case '/workbench':
+        case `${conf.serverPublicPath}/workbench`:
           return {
             title: this.$t('p.project.header.title[2]'),
             description: this.$t('p.project.header.description[2]'),
@@ -130,7 +131,7 @@ export default {
             icon: 'code-working',
             type: 2 // 0.个人项目 1.团队项目 2.工作台
           }
-        case '/':
+        case `${conf.serverPublicPath ? conf.serverPublicPath : '/'}`:
           return {
             title: this.$t('p.project.header.title[0]'),
             description: this.$t('p.project.header.description[0]'),

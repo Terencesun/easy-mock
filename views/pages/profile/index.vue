@@ -85,7 +85,7 @@ export default {
       visible: false,
       language: this.$ls.get('locale') || 'zh-CN',
       languageList: languageMap.list,
-      uploadAPI: '/api/upload',
+      uploadAPI: `${config.serverPublicPath}/api/upload`,
       form: {
         headImg: this.$store.state.user.headImg,
         nickName: this.$store.state.user.nickName,
