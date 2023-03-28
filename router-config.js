@@ -15,9 +15,10 @@ const {
 const baseUtil = require('./util')
 const middleware = require('./middlewares')
 
+const serverPubPath = config.get('fe.serverPublicPath')
 const rateLimitConf = config.get('rateLimit')
-const apiRouter = new Router({ prefix: '/api' })
-const mockRouter = new Router({ prefix: '/mock' })
+const apiRouter = new Router({ prefix: `${serverPubPath}/api` })
+const mockRouter = new Router({ prefix: `${serverPubPath}/mock` })
 const rate = ratelimit({
   db: baseUtil.getRedis(),
   id: ctx => ctx.url,

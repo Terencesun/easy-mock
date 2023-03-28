@@ -6,6 +6,7 @@ const pathToRegexp = require('path-to-regexp')
 
 const blackProjects = config.get('blackList.projects')
 const blackIPs = config.get('blackList.ips')
+const serverPublicPath = config.get('fe.serverPublicPath')
 
 const codeMap = {
   '-1': 'fail',
@@ -50,7 +51,7 @@ module.exports = class Middleware {
   }
 
   static mockFilter (ctx, next) {
-    const pathNode = pathToRegexp('/mock/:projectId(.{24})/:mockURL*').exec(ctx.path)
+    const pathNode = pathToRegexp(`${serverPublicPath}/mock/:projectId(.{24})/:mockURL*`).exec(ctx.path)
 
     if (!pathNode) ctx.throw(404)
     if (blackProjects.indexOf(pathNode[1]) !== -1) {

@@ -20,6 +20,7 @@ const routerConfig = require('./router-config')
 const app = module.exports = new Koa()
 const uploadConf = config.get('upload')
 const jwtSecret = config.get('jwt.secret')
+const serverPubPath = config.get('fe.serverPublicPath')
 
 util.init()
 onerror(app)
@@ -28,20 +29,20 @@ validate(app)
 app
   .use(middleware.ipFilter)
   .use(favicon(path.join(__dirname, '/public/images/icon.png')))
-  .use(serve('/dist', './dist'))
-  .use(serve('/public', './public'))
-  .use(serve('/upload', path.resolve(__dirname, 'config', uploadConf.dir)))
+  .use(serve(`${serverPubPath}/dist`, './dist'))
+  .use(serve(`${serverPubPath}/public`, './public'))
+  .use(serve(`${serverPubPath}/upload`, path.resolve(__dirname, 'config', uploadConf.dir)))
   .use(logger)
   .use(middleware.util)
   .use(cors({ credentials: true, maxAge: 2592000 }))
   .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
-    if (/^\/api/.test(ctx.path)) {
+    if (/\/api\//.test(ctx.path)) {
       return pathToRegexp([
-        '/api/u/login',
-        '/api/u/register',
-        '/api/mock/by_projects',
-        '/api/mock/export',
-        '/api/wallpaper'
+        ':prefix*/api/u/login',
+        ':prefix*/api/u/register',
+        ':prefix*/api/mock/by_projects',
+        ':prefix*/api/mock/export',
+        ':prefix*/api/wallpaper'
       ]).test(ctx.path)
     }
     return true

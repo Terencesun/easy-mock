@@ -136,7 +136,7 @@ export default {
                 title: this.$tc('p.profile.updateSuccess', 1),
                 content: this.$tc('p.profile.updateSuccess', 2),
                 onOk: () => {
-                  this.$router.push('/log-out')
+                  this.$router.push({ name: 'log-out' })
                 }
               })
             }

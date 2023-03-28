@@ -66,7 +66,7 @@
                 v-for="(item, index) in groups" :key="index">
               <div
                 class="em-group__item"
-                @click="$router.push(`/group/${item._id}?name=${item.name}`)">
+                @click="$router.push({ name: 'p-group_id', params: { id: item._id }, query: { name: item.name } })">
                 <h2>{{item.name}}</h2>
                 <Button-group class="group-control">
                   <Button type="ghost" icon="edit" @click.stop="rename(item)"></Button>

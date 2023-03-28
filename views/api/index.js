@@ -8,7 +8,7 @@ let router
 const cookies = new Cookies()
 const isClient = process.env.VUE_ENV === 'client'
 const instance = axios.create({
-  baseURL: isClient ? '/api' : `http://${conf.host}:${conf.port}/api`,
+  baseURL: isClient ? `${conf.serverPublicPath}/api` : `http://${conf.host}:${conf.port}${conf.serverPublicPath}/api`,
   timeout: conf.timeout
 })
 
@@ -85,7 +85,7 @@ instance.interceptors.response.use((res) => {
   if (res) {
     if (res.status === 401 && /authentication/i.test(res.data.error)) {
       if (isClient) {
-        router.push('/log-out')
+        router.push({ name: 'log-out' })
       } else {
         return Promise.reject({ code: 401 }) // eslint-disable-line
       }

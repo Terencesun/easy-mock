@@ -46,6 +46,7 @@
     "copyright": "",
     "storageNamespace": "easy-mock_",
     "timeout": 25000,
-    "publicPath": "/dist/"
+    "publicPath": "/easymock/dist",
+    "serverPublicPath": ""
   }
 }

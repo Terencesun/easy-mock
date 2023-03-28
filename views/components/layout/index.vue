@@ -1,18 +1,18 @@
 <template>
   <div class="em-layout">
-    <em-add @click.native="$router.push('/new')"></em-add>
-    <div v-shortkey="['p']" @shortkey="$router.push('/')"></div>
-    <div v-shortkey="['g']" @shortkey="$router.push('/group')"></div>
-    <div v-shortkey="['w']" @shortkey="$router.push('/workbench')"></div>
-    <div v-shortkey="['d']" @shortkey="$router.push('/docs')"></div>
-    <div v-shortkey="['n']" @shortkey="$router.push('/new')"></div>
+    <em-add @click.native="$router.push({ name: 'p-new' })"></em-add>
+    <div v-shortkey="['p']" @shortkey="$router.push({ name: 'p' })"></div>
+    <div v-shortkey="['g']" @shortkey="$router.push({ name: 'p-group' })"></div>
+    <div v-shortkey="['w']" @shortkey="$router.push({ name: 'p-workbench' })"></div>
+    <div v-shortkey="['d']" @shortkey="$router.push({ name: 'p-docs' })"></div>
+    <div v-shortkey="['n']" @shortkey="$router.push({ name: 'p-new' })"></div>
     <div v-shortkey="['s']" @shortkey="onSearch"></div>
 
     <transition name="fade">
       <div class="em-layout__nav" v-show="pageAnimated">
         <Menu theme="dark" :active-name="pageKey" mode="horizontal">
-          <div class="nav-logo" @click="$router.push('/')">
-            <img src="/public/images/easy-mock.png">
+          <div class="nav-logo" @click="$router.push({ name: 'p' })">
+            <img src="../../../public/images/easy-mock.png">
           </div>
           <div class="nav-search">
             <i-input v-model="searchValue" placeholder="Search Easy Mock" ref="search"></i-input>
@@ -23,28 +23,28 @@
             </template>
             <Menu-item
               name="/"
-              @click.native="$router.push('/')">
+              @click.native="$router.push({ name: 'p' })">
               <Icon type="person"></Icon> {{$t('c.layout.menu[0][1]')}}
             </Menu-item>
             <Menu-item
               name="/group"
-              @click.native="$router.push('/group')">
+              @click.native="$router.push({ name: 'p-group' })">
               <Icon type="person-stalker"></Icon> {{$t('c.layout.menu[0][2]')}}
             </Menu-item>
           </Submenu>
           <Menu-item
             name="/workbench"
-            @click.native="$router.push('/workbench')">
+            @click.native="$router.push({ name: 'p-workbench' })">
             <Icon type="code-working"></Icon> {{$t('c.layout.menu[1]')}}
           </Menu-item>
           <Menu-item
             name="/dashboard"
-            @click.native="$router.push('/dashboard')">
+            @click.native="$router.push({ name: 'p-dashboard' })">
             <Icon type="ios-speedometer"></Icon> {{$t('c.layout.menu[2]')}}
           </Menu-item>
           <Menu-item
             name="/docs"
-            @click.native="$router.push('/docs')">
+            @click.native="$router.push({ name: 'p-docs' })">
             <Badge dot :count="readChangelog ? '0' : '1'">
               <Icon type="ios-book"></Icon> {{$t('c.layout.menu[3]')}}
             </Badge>
@@ -75,7 +75,7 @@
             </template>
             <Menu-item
               name="/profile"
-              @click.native="$router.push('/profile')">
+              @click.native="$router.push({ name: 'p-profile' })">
               <Icon type="edit"></Icon> {{$t('c.layout.menu[5][0]')}}
             </Menu-item>
             <Menu-item
@@ -87,7 +87,7 @@
           <Menu-item
             class="nav-avatar"
             name="/login"
-            @click.native="$router.push('/login')"
+            @click.native="$router.push({ name: 'login' })"
             v-show="!userHeadImg">
             <Icon type="log-in"></Icon> {{$t('c.layout.menu[5][2]')}}
           </Menu-item>
@@ -148,7 +148,7 @@ export default {
       window.open(url)
     },
     logOut () {
-      this.$router.push('/log-out')
+      this.$router.push({ name: 'log-out' })
     },
     onSearch () {
       this.$refs.search.focus()

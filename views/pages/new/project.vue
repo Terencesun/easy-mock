@@ -272,9 +272,9 @@ export default {
             this.$Message.success(this.$t('p.new.form.success.create'))
             if (data.group) {
               const group = this.groups.filter(item => item.value === data.group)[0]
-              this.$router.push(`/group/${group.value}?name=${group.label}`)
+              this.$router.push({ name: 'p-group_id', params: { id: group.value }, query: { name: group.label } })
             } else {
-              this.$router.push('/')
+              this.$router.push({ name: 'p' })
             }
           }
         })
@@ -313,7 +313,7 @@ export default {
       const projectId = this.projectData._id
       this.$store.dispatch('project/REMOVE', projectId).then(() => {
         this.$Message.success(this.$t('p.new.form.success.delete', { name: this.projectData.name }))
-        this.$router.push('/')
+        this.$router.push({ name: 'p' })
       })
     }
   }

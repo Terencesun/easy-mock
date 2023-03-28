@@ -170,7 +170,7 @@ export default {
   methods: {
     go (project) {
       if (!this.cliped) {
-        this.$router.push(`/project/${project._id}`)
+        this.$router.push({ name: 'p-project_id', params: { id: project._id } })
       }
     },
     clip (project) {

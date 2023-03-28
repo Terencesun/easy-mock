@@ -18,7 +18,7 @@ export default {
       this.$ls.remove('user')
       cookies.remove(config.storageNamespace + 'token')
       this.$store.commit('user/SET_VALUE', {})
-      this.$router.push('/login')
+      this.$router.push({ name: 'login' })
     }
   }
 }

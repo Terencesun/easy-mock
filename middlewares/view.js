@@ -5,6 +5,7 @@ const path = require('path')
 const LRU = require('lru-cache')
 const Cookies = require('universal-cookie')
 const { createBundleRenderer } = require('vue-server-renderer')
+const config = require('config')
 
 const resolve = file => path.resolve(__dirname, file)
 const isProd = process.env.NODE_ENV === 'production'
@@ -56,13 +57,14 @@ module.exports = class ViewMiddleware {
         cookies: new Cookies(ctx.headers.cookie)
       }
 
+      const serverPublicPath = config.get('fe.serverPublicPath')
       try {
         ctx.set('Content-Type', 'text/html')
         ctx.body = await getHTML(context)
       } catch (error) {
         if (error.code === 401) {
           ctx.status = 302
-          ctx.redirect('/login')
+          ctx.redirect(`${serverPublicPath}/login`)
         } else {
           ctx.throw(error)
         }

@@ -12,28 +12,30 @@ import dashboard from 'pages/dashboard'
 import detail from 'pages/project-detail'
 import layout from 'components/layout/index'
 
+import conf from 'config'
+
 Vue.use(Router)
 
 export function createRouter () {
   const router = new Router({
     mode: 'history',
     routes: [
-      { path: '/login', component: login },
-      { path: '/log-out', component: logOut },
+      { name: 'login', path: `${conf.serverPublicPath}/login`, component: login },
+      { name: 'log-out', path: `${conf.serverPublicPath}/log-out`, component: logOut },
       {
-        path: '/',
+        path: conf.serverPublicPath ? conf.serverPublicPath : '/',
         component: layout,
         children: [
-          { path: '/', component: project },
-          { path: 'workbench', component: project },
-          { path: 'group/:id', component: project },
-          { path: 'group', component: group },
-          { path: 'docs', component: docs },
-          { path: 'changelog', component: docs },
-          { path: 'dashboard', component: dashboard },
-          { path: 'profile', component: profile },
-          { path: 'new', component: createProject },
-          { path: 'project/:id', component: detail }
+          { name: 'p', path: '/', component: project },
+          { name: 'p-workbench', path: 'workbench', component: project },
+          { name: 'p-group_id', path: 'group/:id', component: project },
+          { name: 'p-group', path: 'group', component: group },
+          { name: 'p-docs', path: 'docs', component: docs },
+          { name: 'p-changelog', path: 'changelog', component: docs },
+          { name: 'p-dashboard', path: 'dashboard', component: dashboard },
+          { name: 'p-profile', path: 'profile', component: profile },
+          { name: 'p-new', path: 'new', component: createProject },
+          { name: 'p-project_id', path: 'project/:id', component: detail }
         ]
       }
     ]

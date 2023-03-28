@@ -35,7 +35,7 @@
             </Col>
             <Col span="5">
               <div>
-                <img :src="group ? '/public/images/group-default.png' : project.user.head_img" />
+                <img :src="group ? '../../../public/images/group-default.png' : project.user.head_img" />
                 <p class="author">{{group ? group.name : project.user.nick_name}}</p>
               </div>
             </Col>
@@ -86,6 +86,7 @@
 <script>
 import Clipboard from 'clipboard'
 import debounce from 'lodash/debounce'
+import conf from 'config'
 
 import * as api from '../../api'
 import Editor from './editor'
@@ -225,7 +226,7 @@ export default {
       }
     },
     baseUrl () {
-      const baseUrl = location.origin + '/mock/' + this.project._id
+      const baseUrl = location.origin + conf.serverPublicPath + '/mock/' + this.project._id
       return this.project.url === '/' ? baseUrl : baseUrl + this.project.url
     },
     group () {

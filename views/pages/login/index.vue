@@ -2,7 +2,7 @@
   <div class="em-index">
     <transition name="zoom">
       <div class="em-index__login" v-if="page === 0">
-        <img src="/public/images/easy-mock.png">
+        <img src="../../../public/images/easy-mock.png">
         <p>{{$tc('p.login.description', 1)}}</p>
         <p>{{$tc('p.login.description', 2)}}</p>
         <transition name="fadeUp" mode="out-in">
@@ -91,7 +91,7 @@
             <transition name="zoom">
               <div v-show="featureVisible">
                 <div class="feature-icon">
-                  <img src="/public/images/icon-swagger.png" style="margin-left: 1px;">
+                  <img src="../../../public/images/icon-swagger.png" style="margin-left: 1px;">
                 </div>
                 <h2>{{$tc('p.login.feature[0]', 1)}}</h2>
                 <p>{{$tc('p.login.feature[0]', 2)}}</p>
@@ -102,7 +102,7 @@
             <transition name="zoom">
               <div v-show="featureVisible">
                 <div class="feature-icon">
-                  <img src="/public/images/icon-mock.png" style="margin-left: 1px;">
+                  <img src="../../../public/images/icon-mock.png" style="margin-left: 1px;">
                 </div>
                 <h2>{{$tc('p.login.feature[1]', 1)}}</h2>
                 <p>{{$tc('p.login.feature[1]', 2)}}</p>
@@ -113,7 +113,7 @@
             <transition name="zoom">
               <div v-show="featureVisible">
                 <div class="feature-icon">
-                  <img src="/public/images/icon-command.png">
+                  <img src="../../../public/images/icon-command.png">
                 </div>
                 <h2>{{$tc('p.login.feature[2]', 1)}}</h2>
                 <p>{{$tc('p.login.feature[2]', 2)}}</p>
@@ -252,11 +252,11 @@ export default {
             config.storageNamespace + 'token',
             body.data.token,
             {
-              path: '/',
+              path: `/${config.serverPublicPath}`,
               maxAge: 60 * 60 * 24 * 31
             }
           )
-          this.$router.push('/')
+          this.$router.push({ name: 'p' })
         }
       }).catch((res) => {
         if (res.data.message === '用户不存在') {

@@ -164,7 +164,7 @@ export default {
     toChangelog () {
       this.$store.commit('app/SET_READ_CHANGELOG', true)
       this.$ls.set('version', this.appVersion)
-      this.$router.push('/changelog')
+      this.$router.push({ name: 'p-changelog' })
     },
     changeRoute () {
       this.isFixed = false
