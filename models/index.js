@@ -17,7 +17,6 @@ module.exports = {
   Mock: require('./mock'),
   Group: require('./group'),
   Project: require('./project'),
-  MockCount: require('./mock_count'),
   UserGroup: require('./user_group'),
   UserProject: require('./user_project')
 }

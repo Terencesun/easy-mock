@@ -5,20 +5,9 @@
   "proxy": false,
   "db": "mongodb://localhost/easy-mock",
   "unsplashClientId": "",
-  "redis": {
-    "keyPrefix": "[Easy Mock]",
-    "port": 6379,
-    "host": "localhost",
-    "password": "",
-    "db": 0
-  },
   "blackList": {
     "projects": [],
     "ips": []
-  },
-  "rateLimit": {
-    "max": 1000,
-    "duration": 1000
   },
   "jwt": {
     "expire": "14 days",

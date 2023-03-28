@@ -3,7 +3,6 @@
 const config = require('config')
 const Router = require('koa-router')
 const restc = require('restc').koa2()
-const ratelimit = require('koa-ratelimit')
 const {
   user,
   mock,
@@ -12,28 +11,14 @@ const {
   project,
   dashboard
 } = require('./controllers')
-const baseUtil = require('./util')
 const middleware = require('./middlewares')
 
 const serverPubPath = config.get('fe.serverPublicPath')
-const rateLimitConf = config.get('rateLimit')
 const apiRouter = new Router({ prefix: `${serverPubPath}/api` })
 const mockRouter = new Router({ prefix: `${serverPubPath}/mock` })
-const rate = ratelimit({
-  db: baseUtil.getRedis(),
-  id: ctx => ctx.url,
-  max: rateLimitConf.max,
-  duration: rateLimitConf.duration,
-  errorMessage: 'Sometimes You Just Have to Slow Down.',
-  headers: {
-    remaining: 'Rate-Limit-Remaining',
-    reset: 'Rate-Limit-Reset',
-    total: 'Rate-Limit-Total'
-  }
-})
 
 exports.mock = mockRouter
-  .all('*', middleware.mockFilter, rate, restc, mock.getMockAPI)
+  .all('*', middleware.mockFilter, restc, mock.getMockAPI)
 
 exports.api = apiRouter
   .get('/wallpaper', util.wallpaper)

@@ -4,13 +4,9 @@ const _ = require('lodash')
 const path = require('path')
 const config = require('config')
 const rimraf = require('rimraf')
-const Redis = require('ioredis')
 const moment = require('moment')
 const bcrypt = require('bcryptjs')
 const pathToRegexp = require('path-to-regexp')
-const { MockCountProxy } = require('../proxy')
-
-const redis = new Redis(config.get('redis'))
 
 module.exports = class BaseUtil {
   /**
@@ -19,15 +15,6 @@ module.exports = class BaseUtil {
 
   static async init () {
     this.dropFileSchedule()
-    this.mockUseCountSchedule()
-  }
-
-  /**
-   * 获取 redis 实例
-   */
-
-  static getRedis () {
-    return redis
   }
 
   /**
@@ -107,19 +94,6 @@ module.exports = class BaseUtil {
       rimraf(commandPath, _.noop)
       setInterval(() => rimraf(commandPath, _.noop), 1000 * 60 * 60)
     }
-  }
-
-  static mockUseCountSchedule () {
-    async function run () {
-      const len = await redis.llen('mock.count')
-      if (len === 0) return
-      const mockIds = await redis.lrange('mock.count', -len, len)
-      await redis.ltrim('mock.count', 0, -(len + 1))
-      await MockCountProxy.newAndSave(mockIds)
-    }
-
-    run()
-    setInterval(run, 1000 * 10)
   }
 
   /**
