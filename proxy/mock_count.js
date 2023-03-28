@@ -11,7 +11,7 @@ module.exports = class MockCountProxy {
     const date = moment().format('YYYY-MM-DD')
 
     Object.keys(group).forEach(async mockId => {
-      await MockCount.update(
+      await MockCount.updateOne(
         {mock: mockId, create_at: date},
         {$inc: { count: group[mockId].length }},
         {upsert: true}

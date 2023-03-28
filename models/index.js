@@ -3,17 +3,14 @@
 const mongoose = require('mongoose')
 const config = require('config')
 
-mongoose.Promise = global.Promise
-mongoose.connect(config.get('db'), {
-  useMongoClient: true,
-  poolSize: 20
-}, (err) => {
-  /* istanbul ignore if */
-  if (err) {
-    console.error('connect to %s error: ', config.get('db'), err.message)
-    process.exit(1)
-  }
-})
+async function initConn () {
+  await mongoose.connect(config.get('db'), {
+    maxPoolSize: 20,
+    minPoolSize: 10
+  })
+}
+
+initConn()
 
 module.exports = {
   User: require('./user'),
